@@ -1,5 +1,10 @@
 #/bin/bash
-User=zeki
+## AWS EC2 생성시 기본계정이 아닌 새로 만든 계정으로 접근하게 하기 위한 스크립트.
+## 사용 가능한 OS ( AmazonLinux2, Rocky, Centos )
+
+## 사용할 User 기입 
+## ex) User=Harulife
+User=test
 
 ## OS 정보 확인
 OS=`cat /etc/*-release | grep PRETTY_NAME | awk '{print $1}' | cut -d "\"" -f2`
@@ -15,15 +20,15 @@ else
 	exit 1
 fi
 
-## root 권한부여 유저 생성
+## wheel 그룹에 신규 유저 추가
 useradd -G wheel $User
 
-## New User pemkey copy
+## 신규 유저 디렉토리에 Key파일 복사
 cp -arp /home/$OS_User/.ssh/ /home/$User/.ssh/
 
-## copy key 권한 부여
+## 복사한 Key 파일에 소유권 변경
 chown $User.$User /home/$User/.ssh/
 chown $User.$User /home/$User/.ssh/authorized_keys
 
-## New User root 권한 획득
+## 새로 만든 계정이 sudo 권한얻을때 패스워드 질의 x 처리
 echo "$User ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users

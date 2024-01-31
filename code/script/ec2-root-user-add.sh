@@ -1,5 +1,5 @@
 #/bin/bash
-User=zeki02
+User=zeki
 
 ## OS 정보 확인
 OS=`cat /etc/*-release | grep PRETTY_NAME | awk '{print $1}' | cut -d "\"" -f2`

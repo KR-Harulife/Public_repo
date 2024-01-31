@@ -6,7 +6,7 @@
 ## ex) User=Harulife
 User=test
 
-## OS 정보 확인
+## OS 정보 확인 및 OS별 기본 User 설정
 OS=`cat /etc/*-release | grep PRETTY_NAME | awk '{print $1}' | cut -d "\"" -f2`
 
 if [ $OS == "Rocky" ]; then
